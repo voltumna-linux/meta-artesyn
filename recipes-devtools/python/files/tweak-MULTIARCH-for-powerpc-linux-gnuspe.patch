@@ -1,0 +1,17 @@
+diff -ruNp Python-3.7.2.orig/configure.ac Python-3.7.2/configure.ac
+--- Python-3.7.2.orig/configure.ac	2019-09-04 15:12:10.567455583 +0200
++++ Python-3.7.2/configure.ac	2019-09-04 15:13:01.111658596 +0200
+@@ -726,6 +726,13 @@ fi
+ 
+ 
+ MULTIARCH=$($CC --print-multiarch 2>/dev/null)
++
++# Tweak MULTIARCH
++if test x$MULTIARCH = xpowerpc-linux-gnuspev1
++then
++	MULTIARCH="powerpc-linux-gnuspe"
++fi
++
+ AC_SUBST(MULTIARCH)
+ 
+ AC_MSG_CHECKING([for the platform triplet based on compiler characteristics])

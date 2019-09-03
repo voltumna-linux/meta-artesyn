@@ -1,0 +1,46 @@
+From 6be5df7a568f8ace5b49b81fd7f0b2829bb9998c Mon Sep 17 00:00:00 2001
+From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
+Date: Fri, 8 Jul 2016 10:00:17 +0200
+Subject: The phy's compatible isn't necessary anymore
+
+---
+ arch/powerpc/boot/dts/fsl/mvme2500.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/powerpc/boot/dts/fsl/mvme2500.dts b/arch/powerpc/boot/dts/fsl/mvme2500.dts
+index 4f230c3ca060..4654441b3575 100644
+--- a/arch/powerpc/boot/dts/fsl/mvme2500.dts
++++ b/arch/powerpc/boot/dts/fsl/mvme2500.dts
+@@ -96,25 +96,25 @@
+ 
+ 		mdio@24520 {
+ 			phy1: ethernet-phy@1 {
+-				compatible = "brcm,bcm54616S";
++//				compatible = "brcm,bcm54616S";
+ 				interrupts = <6 1 0 0>;
+ 				reg = <0x1>;
+ 			};
+ 
+ 			phy2: ethernet-phy@2 {
+-				compatible = "brcm,bcm54616S";
++//				compatible = "brcm,bcm54616S";
+ 				interrupts = <6 1 0 0>;
+ 				reg = <0x2>;
+ 			};
+ 
+ 			phy3: ethernet-phy@3 {
+-				compatible = "brcm,bcm54616S";
++//				compatible = "brcm,bcm54616S";
+ 				interrupts = <5 1 0 0>;
+ 				reg = <0x3>;
+ 			};
+ 
+ 			phy7: ethernet-phy@7 {
+-				compatible = "brcm,bcm54616S";
++//				compatible = "brcm,bcm54616S";
+ 				interrupts = <7 1 0 0>;
+ 				reg = <0x7>;
+ 			};
+-- 
+2.12.0
+
