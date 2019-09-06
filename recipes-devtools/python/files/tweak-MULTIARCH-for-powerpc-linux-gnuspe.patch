@@ -1,6 +1,6 @@
-diff -ruNp Python-3.7.2.orig/configure.ac Python-3.7.2/configure.ac
---- Python-3.7.2.orig/configure.ac	2019-09-04 15:12:10.567455583 +0200
-+++ Python-3.7.2/configure.ac	2019-09-04 15:13:01.111658596 +0200
+diff -ruNp Python-3.7.4.orig/configure.ac Python-3.7.4/configure.ac
+--- Python-3.7.4.orig/configure.ac	2019-09-04 15:54:17.606209722 +0200
++++ Python-3.7.4/configure.ac	2019-09-04 15:55:23.666291574 +0200
 @@ -726,6 +726,13 @@ fi
  
  
@@ -14,4 +14,4 @@ diff -ruNp Python-3.7.2.orig/configure.ac Python-3.7.2/configure.ac
 +
  AC_SUBST(MULTIARCH)
  
- AC_MSG_CHECKING([for the platform triplet based on compiler characteristics])
+ AC_CANONICAL_TARGET
