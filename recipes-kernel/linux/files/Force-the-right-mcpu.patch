@@ -1,0 +1,13 @@
+diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
+index c4c03992ee82..24c4b8fce57b 100644
+--- a/arch/powerpc/Makefile
++++ b/arch/powerpc/Makefile
+@@ -157,7 +157,7 @@ CFLAGS-$(CONFIG_GENERIC_CPU) += $(call cc-option,-mtune=power7,$(call cc-option,
+ CFLAGS-$(CONFIG_GENERIC_CPU) += $(call cc-option,-mcpu=power5,-mcpu=power4)
+ endif
+ else
+-CFLAGS-$(CONFIG_GENERIC_CPU) += -mcpu=powerpc64
++CFLAGS-$(CONFIG_GENERIC_CPU) += $(call cc-option,-cpu=powerpc64,-mcpu=8540 -msoft-float)
+ endif
+ 
+ ifdef CONFIG_FUNCTION_TRACER
