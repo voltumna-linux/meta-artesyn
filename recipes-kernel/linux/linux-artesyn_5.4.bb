@@ -11,15 +11,15 @@ SRC_URI = "git://github.com/voltumna-linux/linux-artesyn.git;protocol=https;bran
 
 PV = "${LINUX_VERSION}.28+git${SRCPV}"
 
-COMPATIBLE_MACHINE = "(mvme5100|mvme2500)"
+COMPATIBLE_MACHINE = "(mvme5100|mvme2500|mvme7100)"
 
 DEPENDS_mvme2500 += "u-boot-mkimage-native"
-KERNEL_DEVICETREE_mvme2500 = "fsl/mvme2500.dtb"
 
 # How handle in-kernel configurations which uses config fragments?
 # KBUILD_DEFCONFIG_mvme5100 ?= "mvme5100_defconfig"
 # KBUILD_DEFCONFIG_mvme2500 ?= "mpc85xx_defconfig"
 # KCONFIG_MODE ?= "--alldefconfig"
+
 SRC_URI_append += " \
 	file://defconfig \
 	file://fix-perf.patch \
