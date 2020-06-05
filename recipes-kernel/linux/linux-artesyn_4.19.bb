@@ -2,14 +2,14 @@ DESCRIPTION = "Artesyn Linux kernel"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
-LINUX_VERSION ?= "5.4"
+LINUX_VERSION ?= "4.19"
 LINUX_VERSION_EXTENSION ?= "-artesyn"
 
-SRCREV ?= "148568b5c36821e2f5e26771e88b7c15bc4ae216"
+SRCREV ?= "2a87c24e0e914328181cf1f7da9f18f7d830be3f"
 KBRANCH ?= "artesyn-${LINUX_VERSION}"
 SRC_URI = "git://github.com/voltumna-linux/linux-artesyn.git;protocol=https;branch=${KBRANCH}"
 
-PV = "${LINUX_VERSION}.28+git${SRCPV}"
+PV = "${LINUX_VERSION}.59+git${SRCPV}"
 
 COMPATIBLE_MACHINE = "(mvme5100|mvme2500|mvme7100)"
 
@@ -19,10 +19,8 @@ DEPENDS_mvme2500 += "u-boot-mkimage-native"
 # KBUILD_DEFCONFIG_mvme5100 ?= "mvme5100_defconfig"
 # KBUILD_DEFCONFIG_mvme2500 ?= "mpc85xx_defconfig"
 # KCONFIG_MODE ?= "--alldefconfig"
-
 SRC_URI_append += " \
 	file://defconfig \
-	file://fix-perf.patch \
 	"
 
 SRC_URI_append_mvme5100 += " \
