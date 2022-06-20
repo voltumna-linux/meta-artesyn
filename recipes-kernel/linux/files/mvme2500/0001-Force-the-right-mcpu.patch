@@ -1,5 +1,14 @@
+From 8ae6cb0b14734208835ea97c4c6b922e499a1387 Mon Sep 17 00:00:00 2001
+From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
+Date: Mon, 6 Jun 2022 13:20:39 +0200
+Subject: [PATCH 1/9] Force the right mcpu
+
+---
+ arch/powerpc/Makefile | 17 -----------------
+ 1 file changed, 17 deletions(-)
+
 diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
-index 37ac731a556b..a7ec0abb0e3b 100644
+index b9d2fcf030d0..a1385056c03b 100644
 --- a/arch/powerpc/Makefile
 +++ b/arch/powerpc/Makefile
 @@ -17,23 +17,6 @@ HAS_BIARCH	:= $(call cc-option-yn, -m32)
@@ -26,3 +35,6 @@ index 37ac731a556b..a7ec0abb0e3b 100644
  # If we're on a ppc/ppc64/ppc64le machine use that defconfig, otherwise just use
  # ppc64_defconfig because we have nothing better to go on.
  uname := $(shell uname -m)
+-- 
+2.24.4
+

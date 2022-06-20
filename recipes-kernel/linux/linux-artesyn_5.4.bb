@@ -40,8 +40,15 @@ SRC_URI_append_mvme7100 += " \
 SRC_URI_append_mvme2500 += " \
 	file://devtmpfs.cfg \
 	file://enable-pci-realloc.cfg \
-	file://0014-The-phy-s-compatible-isn-t-necessary-anymore.patch \
-	file://Force-the-right-mcpu.patch \
+	file://0001-Force-the-right-mcpu.patch \
+	file://0002-Fix-an-LBC-window-length.patch \
+	file://0003-Add-interrupt-for-temperature-sensor.patch \
+	file://0004-Workaround-for-let-VME-grab-the-right-IRQ-0.patch \
+	file://0005-Remove-add-empty-lines.patch \
+	file://0006-Add-commented-code-of-the-interrupt-handlers-for-IRQ.patch \
+	file://0007-The-phy-s-compatible-isn-t-necessary-anymore.patch \
+	file://0008-Add-SMP-support.patch \
+	file://0009-Add-a-complete-proc-file-for-VME.patch \
 	"
 
 require recipes-kernel/linux/linux-yocto.inc
