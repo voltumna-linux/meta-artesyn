@@ -1,0 +1,1 @@
+EXTRA_OEMAKE:append:mvme2500 = " HAS_BIARCH=n"

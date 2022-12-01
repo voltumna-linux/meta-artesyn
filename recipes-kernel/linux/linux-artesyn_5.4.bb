@@ -1,5 +1,5 @@
 DESCRIPTION = "Artesyn Linux kernel"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 LINUX_VERSION ?= "5.4"
@@ -13,23 +13,23 @@ PV = "${LINUX_VERSION}.193+git${SRCPV}"
 
 COMPATIBLE_MACHINE = "(mvme5100|mvme2500|mvme7100)"
 
-DEPENDS_mvme2500 += "u-boot-mkimage-native"
+DEPENDS:append:mvme2500 = "u-boot-mkimage-native"
 
 # How handle in-kernel configurations which uses config fragments?
 # KBUILD_DEFCONFIG_mvme5100 ?= "mvme5100_defconfig"
 # KBUILD_DEFCONFIG_mvme2500 ?= "mpc85xx_defconfig"
 # KCONFIG_MODE ?= "--alldefconfig"
 
-SRC_URI_append += " \
+SRC_URI:append = " \
 	file://defconfig \
 	"
 
-SRC_URI_append_mvme5100 += " \
+SRC_URI:append:mvme5100 = " \
 	file://altivec.cfg \
 	file://devtmpfs.cfg \
 	"
 
-SRC_URI_append_mvme7100 += " \
+SRC_URI:append:mvme7100 = " \
 	file://altivec.cfg \
 	file://devtmpfs.cfg \
 	file://0001-Enable-L2-cache-on-all-cores.patch \
@@ -37,7 +37,7 @@ SRC_URI_append_mvme7100 += " \
 	file://0003-Try-to-add-PCI-interrupt-definition.patch \
 	"
 
-SRC_URI_append_mvme2500 += " \
+SRC_URI:append:mvme2500 = " \
 	file://devtmpfs.cfg \
 	file://enable-pci-realloc.cfg \
 	file://0001-Force-the-right-mcpu.patch \
@@ -50,5 +50,7 @@ SRC_URI_append_mvme2500 += " \
 	file://0008-Add-SMP-support.patch \
 	file://0009-Add-a-complete-proc-file-for-VME.patch \
 	"
+
+# EXTRA_OEMAKE:append:mvme2500 = " HAS_BIARCH=n"
 
 require recipes-kernel/linux/linux-yocto.inc
