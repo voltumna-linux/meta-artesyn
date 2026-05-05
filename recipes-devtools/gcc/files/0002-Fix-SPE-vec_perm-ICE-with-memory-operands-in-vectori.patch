@@ -1,9 +1,7 @@
-From 66ce208c3cd00a1f5794c63801518cf795aefca3 Mon Sep 17 00:00:00 2001
+From 46d2b491bdedd27d7be7c6be16141e4cbde49368 Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Sun, 8 Mar 2026 20:53:25 +0100
-Subject: [PATCH] Fix SPE vec_perm ICE with memory operands in vectorizer
-
-Upstream-Status: Inappropriate
+Subject: [PATCH 2/6] Fix SPE vec_perm ICE with memory operands in vectorizer
 
 rs6000_expand_vec_perm_const_1 emits vec_select(vec_concat(op0, op1))
 RTL directly, but the SPE vec_perm*_v2si patterns in spe.md require
@@ -15,7 +13,11 @@ Force operands into registers with force_reg before building the
 VEC_CONCAT RTL.
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+(cherry picked from commit 66ce208c3cd00a1f5794c63801518cf795aefca3)
 ---
+
+Upstream-Status: Inappropriate
+
  gcc/config/powerpcspe/powerpcspe.cc | 2 ++
  1 file changed, 2 insertions(+)
 
