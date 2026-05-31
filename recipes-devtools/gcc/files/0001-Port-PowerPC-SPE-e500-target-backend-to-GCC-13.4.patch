@@ -1,7 +1,7 @@
 From c466441e436b5110a0867ce6d1441ff5e0ec6056 Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Sun, 8 Mar 2026 07:52:09 +0100
-Subject: [PATCH 1/6] Port PowerPC SPE (e500) target backend to GCC 13.4
+Subject: [PATCH 1/8] Port PowerPC SPE (e500) target backend to GCC 13.4
 
 Reintegrate the powerpcspe target backend into GCC 13, adapted from the
 GCC 8 era fork of rs6000. This enables building a cross-compiler for

@@ -1,7 +1,7 @@
 From 549a270965b2d6c647e78e895753c1a4e0d2785c Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Fri, 24 Apr 2026 16:32:20 +0200
-Subject: [PATCH 4/6] powerpcspe: modernize VECTOR_TYPE_P and by-pieces move
+Subject: [PATCH 4/8] powerpcspe: modernize VECTOR_TYPE_P and by-pieces move
  macros
 
 Optional, zero-risk modernization on top of the GCC 15 API adaptation.

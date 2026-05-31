@@ -1,7 +1,7 @@
 From 2848c2db6d86ff0ca20af4fc146597536dd549b4 Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Fri, 24 Apr 2026 16:31:59 +0200
-Subject: [PATCH 3/6] Adapt powerpcspe backend to GCC 15 API changes
+Subject: [PATCH 3/8] Adapt powerpcspe backend to GCC 15 API changes
 
 Forward-port the out-of-tree PowerPC SPE (e500) target backend from
 GCC 13.4 to GCC 15.2.  Applies to the two preceding cherry-picks that

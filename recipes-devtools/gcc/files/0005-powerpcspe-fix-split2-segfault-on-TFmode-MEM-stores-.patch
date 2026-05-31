@@ -1,7 +1,7 @@
 From 320a048ad8f4cdf2cb4fc10d90097e887870f245 Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Mon, 4 May 2026 09:00:35 +0200
-Subject: [PATCH 5/6] powerpcspe: fix split2 segfault on TFmode MEM stores
+Subject: [PATCH 5/8] powerpcspe: fix split2 segfault on TFmode MEM stores
  under STRICT_ALIGNMENT
 
 The split of *mov<FMOVE128>_softfloat (TFmode store via the soft-float

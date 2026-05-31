@@ -1,7 +1,7 @@
 From 46d2b491bdedd27d7be7c6be16141e4cbde49368 Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Sun, 8 Mar 2026 20:53:25 +0100
-Subject: [PATCH 2/6] Fix SPE vec_perm ICE with memory operands in vectorizer
+Subject: [PATCH 2/8] Fix SPE vec_perm ICE with memory operands in vectorizer
 
 rs6000_expand_vec_perm_const_1 emits vec_select(vec_concat(op0, op1))
 RTL directly, but the SPE vec_perm*_v2si patterns in spe.md require

@@ -1,0 +1,92 @@
+From 9151cfe73954ad7ed6530f5de2a8a4c5778e851a Mon Sep 17 00:00:00 2001
+From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
+Date: Sun, 31 May 2026 09:51:37 +0200
+Subject: [PATCH 8/8] powerpcspe: make Linux start/end file specs default-PIE
+ aware
+
+STARTFILE_LINUX_SPEC and ENDFILE_LINUX_SPEC selected the startfiles with
+%{pie:...} / %{shared|pie:...}, which only match an *explicit* -pie on
+the command line, not PIE enabled by default.
+
+On a toolchain configured with --enable-default-pie the link is PIE, yet
+these specs fell through to the non-PIC crt1.o / crtbegin.o / crtend.o
+instead of the PIC Scrt1.o / crtbeginS.o / crtendS.o.  The non-PIC
+crtbegin.o loads the GOT pointer with an absolute R_PPC_ADDR16_HA/LO and
+references _ITM_{,de}registerTMCloneTable the same way, so every
+default-PIE executable ended up with absolute relocations against .text
+and was marked DT_TEXTREL -- e.g. do_package_qa in OE/Yocto rejects
+"make" with "ELF binary ... has relocations in .text [textrel]".
+
+The secure-plt default (--enable-secureplt -> -msecure-plt) was a red
+herring: crtbeginS.o is built PIC and secure-plt (PC-relative GOT,
+R_PPC_REL16), but it was never linked for default-PIE because of the
+spec above.
+
+Fix it the way rs6000/sysv4.h does: define STARTFILE_LINUX_SPEC and
+ENDFILE_LINUX_SPEC to the GNU userspace specs, which key on PIE_SPEC
+(= "!no-pie" under default-pie) and therefore pick the S-variants for
+both explicit and default PIE.  Verified with -### that a default-pie
+link now pulls Scrt1.o/crtbeginS.o/crtendS.o while -no-pie still gets
+crt1.o/crtbegin.o/crtend.o.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+---
+
+Upstream-Status: Inappropriate
+
+ gcc/config/powerpcspe/sysv4.h | 24 +++++++-----------------
+ 1 file changed, 7 insertions(+), 17 deletions(-)
+
+diff --git a/gcc/config/powerpcspe/sysv4.h b/gcc/config/powerpcspe/sysv4.h
+index 057f07e2321..2eb7b852180 100644
+--- a/gcc/config/powerpcspe/sysv4.h
++++ b/gcc/config/powerpcspe/sysv4.h
+@@ -740,38 +740,28 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
+ %{!shared: %{profile:-lc_p} %{!profile:-lc}}}"
+ 
+ #if ENABLE_OFFLOADING == 1
+ #define CRTOFFLOADBEGIN "%{fopenacc|fopenmp:crtoffloadbegin%O%s}"
+ #define CRTOFFLOADEND "%{fopenacc|fopenmp:crtoffloadend%O%s}"
+ #else
+ #define CRTOFFLOADBEGIN ""
+ #define CRTOFFLOADEND ""
+ #endif
+ 
+-#ifdef HAVE_LD_PIE
+-#define	STARTFILE_LINUX_SPEC "\
+-%{!shared: %{pg|p|profile:gcrt1.o%s;pie:Scrt1.o%s;:crt1.o%s}} \
+-%{mnewlib:ecrti.o%s;:crti.o%s} \
+-%{static:crtbeginT.o%s;shared|pie:crtbeginS.o%s;:crtbegin.o%s} \
+-" CRTOFFLOADBEGIN
+-#else
+-#define	STARTFILE_LINUX_SPEC "\
+-%{!shared: %{pg|p|profile:gcrt1.o%s;:crt1.o%s}} \
+-%{mnewlib:ecrti.o%s;:crti.o%s} \
+-%{static:crtbeginT.o%s;shared|pie:crtbeginS.o%s;:crtbegin.o%s} \
+-" CRTOFFLOADBEGIN
+-#endif
++/* Use the default-PIE-aware GNU userspace startfile/endfile specs (which key
++   on PIE_SPEC, not just an explicit -pie).  Hand-rolling these with %{pie:...}
++   makes --enable-default-pie links pull in the non-PIC crt1.o/crtbegin.o/
++   crtend.o instead of Scrt1.o/crtbeginS.o/crtendS.o, producing DT_TEXTREL.
++   Mirror rs6000/sysv4.h.  */
++#define	STARTFILE_LINUX_SPEC GNU_USER_TARGET_STARTFILE_SPEC
+ 
+-#define	ENDFILE_LINUX_SPEC "\
+-%{shared|pie:crtendS.o%s;:crtend.o%s} \
+-%{mnewlib:ecrtn.o%s;:crtn.o%s} \
+-" CRTOFFLOADEND
++#define	ENDFILE_LINUX_SPEC GNU_USER_TARGET_ENDFILE_SPEC
+ 
+ #define LINK_START_LINUX_SPEC ""
+ 
+ #define MUSL_DYNAMIC_LINKER_E ENDIAN_SELECT("","le","")
+ 
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld.so.1"
+ #undef MUSL_DYNAMIC_LINKER
+ #define MUSL_DYNAMIC_LINKER \
+   "/lib/ld-musl-powerpc" MUSL_DYNAMIC_LINKER_E "%{msoft-float:-sf}.so.1"
+ 
+-- 
+2.43.0
+
