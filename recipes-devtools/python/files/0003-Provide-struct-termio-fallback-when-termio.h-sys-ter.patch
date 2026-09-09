@@ -1,4 +1,4 @@
-From 378fe64f2a0361b3941466801a9eb7385966289c Mon Sep 17 00:00:00 2001
+From 186c74e11b2775d7431f643bdac41164dc491f2f Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Tue, 5 May 2026 13:21:50 +0200
 Subject: [PATCH 3/3] Provide struct termio fallback when
@@ -46,7 +46,7 @@ index ae474ef6375..c762d089242 100644
 +constants can still be exposed. Including ``<sys/termio.h>`` earlier also
 +satisfies the QNX requirement that it precede ``<termios.h>``.
 diff --git a/Modules/termios.c b/Modules/termios.c
-index 362633ed416..5659c5d0f49 100644
+index 7e8e4f35f6d..4803844d409 100644
 --- a/Modules/termios.c
 +++ b/Modules/termios.c
 @@ -3,38 +3,51 @@
@@ -114,5 +114,5 @@ index 362633ed416..5659c5d0f49 100644
  #  include <sys/filio.h>
  #  include <sys/sockio.h>
 -- 
-2.43.0
+2.53.0
 

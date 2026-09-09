@@ -1,4 +1,4 @@
-From ffc83be90727a00bc5ce9732da66be835ace015d Mon Sep 17 00:00:00 2001
+From d4da606d12c7ab128d16feb1aee4c717f8a5a20d Mon Sep 17 00:00:00 2001
 From: Alessio Igor Bogani <alessio.bogani@elettra.eu>
 Date: Mon, 4 May 2026 14:10:00 +0200
 Subject: [PATCH 2/3] Fix termios build when <sys/ioctl.h> uses struct termio
@@ -39,7 +39,7 @@ index 00000000000..ae474ef6375
 +now probes for ``<termio.h>`` and ``Modules/termios.c`` includes it when
 +available so the struct is complete when those macros are expanded.
 diff --git a/Modules/termios.c b/Modules/termios.c
-index efb5fcc17fa..362633ed416 100644
+index 6205f6026ef..7e8e4f35f6d 100644
 --- a/Modules/termios.c
 +++ b/Modules/termios.c
 @@ -3,20 +3,27 @@
@@ -71,10 +71,10 @@ index efb5fcc17fa..362633ed416 100644
  #  include <sys/termio.h>
  #endif
 diff --git a/configure b/configure
-index 645628fecf2..0d2b7244115 100755
+index 2cb22a7806f..e7ea83b1d18 100755
 --- a/configure
 +++ b/configure
-@@ -11678,20 +11678,26 @@ ac_fn_c_check_header_compile "$LINENO" "sysexits.h" "ac_cv_header_sysexits_h" "$
+@@ -11837,20 +11837,26 @@ ac_fn_c_check_header_compile "$LINENO" "sysexits.h" "ac_cv_header_sysexits_h" "$
  if test "x$ac_cv_header_sysexits_h" = xyes
  then :
    printf "%s\n" "#define HAVE_SYSEXITS_H 1" >>confdefs.h
@@ -102,11 +102,10 @@ index 645628fecf2..0d2b7244115 100755
  if test "x$ac_cv_header_util_h" = xyes
  then :
 diff --git a/configure.ac b/configure.ac
-index 08189e8b3ac..aeadc858e38 100644
+index f471dcd9e39..0d9749b9d12 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3002,21 +3002,21 @@ AC_CHECK_HEADERS([ \
-   alloca.h asm/types.h bluetooth.h conio.h direct.h dlfcn.h endian.h errno.h fcntl.h grp.h \
+@@ -3079,21 +3079,21 @@ AC_CHECK_HEADERS([ \
    io.h langinfo.h libintl.h libutil.h linux/auxvec.h sys/auxv.h linux/fs.h linux/limits.h linux/memfd.h \
    linux/netfilter_ipv4.h linux/random.h linux/soundcard.h linux/sched.h \
    linux/tipc.h linux/wait.h netdb.h net/ethernet.h netinet/in.h netpacket/packet.h poll.h process.h pthread.h pty.h \
@@ -114,7 +113,8 @@ index 08189e8b3ac..aeadc858e38 100644
    sys/endian.h sys/epoll.h sys/event.h sys/eventfd.h sys/file.h sys/ioctl.h sys/kern_control.h \
    sys/loadavg.h sys/lock.h sys/memfd.h sys/mkdev.h sys/mman.h sys/modem.h sys/param.h sys/pidfd.h sys/poll.h \
    sys/random.h sys/resource.h sys/select.h sys/sendfile.h sys/socket.h sys/soundcard.h sys/stat.h \
-   sys/statvfs.h sys/sys_domain.h sys/syscall.h sys/sysmacros.h sys/termio.h sys/time.h sys/times.h sys/timerfd.h \
+   sys/statvfs.h sys/sys_domain.h sys/syscall.h sys/sysctl.h \
+   sys/sysmacros.h sys/termio.h sys/time.h sys/times.h sys/timerfd.h \
    sys/types.h sys/uio.h sys/un.h sys/utsname.h sys/wait.h sys/xattr.h sysexits.h syslog.h \
 -  termios.h util.h utime.h utmp.h \
 +  termio.h termios.h util.h utime.h utmp.h \
@@ -129,10 +129,10 @@ index 08189e8b3ac..aeadc858e38 100644
  AC_CHECK_HEADERS([bluetooth/bluetooth.h])
  CFLAGS=$SAVE_CFLAGS
 diff --git a/pyconfig.h.in b/pyconfig.h.in
-index 9502fcebf5d..9a385bdad08 100644
+index bb6bc2b8caf..9ae223cee55 100644
 --- a/pyconfig.h.in
 +++ b/pyconfig.h.in
-@@ -1496,20 +1496,23 @@
+@@ -1520,20 +1520,23 @@
  
  /* Define to 1 if you have the 'tcgetpgrp' function. */
  #undef HAVE_TCGETPGRP
@@ -157,5 +157,5 @@ index 9502fcebf5d..9a385bdad08 100644
  
  /* Define if you have the 'timerfd_create' function. */
 -- 
-2.43.0
+2.53.0
 
