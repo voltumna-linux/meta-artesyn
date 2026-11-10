@@ -2,14 +2,14 @@ DESCRIPTION = "Artesyn Linux kernel"
 LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
-LINUX_VERSION ?= "6.12"
+LINUX_VERSION ?= "6.18"
 LINUX_VERSION_EXTENSION ?= "-artesyn"
 
-SRCREV ?= "1801688997a48d8100637f7d16856d4c886f6ff0"
+SRCREV ?= "6f86f551c7e06753c3e9ab9590e11e341d8cdd55"
 KBRANCH ?= "artesyn-${LINUX_VERSION}"
 SRC_URI = "git://github.com/voltumna-linux/linux-artesyn.git;protocol=https;branch=${KBRANCH}"
 
-PV = "${LINUX_VERSION}.82+git${SRCPV}"
+PV = "${LINUX_VERSION}.57+git${SRCPV}"
 
 COMPATIBLE_MACHINE = "(mvme2500|mvme5100|mvme6100|mvme7100)"
 
